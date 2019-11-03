@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@color/colorPrimary"
 
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -16,9 +17,9 @@
         android:orientation="vertical">
 
         <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id ="@+id/viewpager"></androidx.viewpager.widget.ViewPager>
+            android:layout_height="match_parent"></androidx.viewpager.widget.ViewPager>
     </LinearLayout>
 
     <LinearLayout
@@ -38,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_alignParentBottom="true"
-            android:background="#F2F2F2"
+            android:background="@color/colorPrimary"
             android:gravity="center"
             android:orientation="horizontal">
 

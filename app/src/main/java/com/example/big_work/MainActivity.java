@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements ByListFragment.Fr
     String[] muName;
     int len,posi;
 
-    int pf;
+    int pf,ff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements ByListFragment.Fr
 
 
         pf = 0;//播放还是暂停的标志位
+        ff=0;
         btest1 = findViewById(R.id.imageButton2);
         btest1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements ByListFragment.Fr
                         player.start();
                         pf =1;
                         btest1.setBackgroundDrawable(getResources().getDrawable(R.drawable.stop));
+                        ff=1;
                         //gramophoneView.setPlaying(!gramophoneView.getPlaying());
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -117,12 +119,14 @@ public class MainActivity extends AppCompatActivity implements ByListFragment.Fr
                 else if(pf==1){
                     player.pause();
                     pf=2;
+                    ff=2;
                     btest1.setBackgroundDrawable(getResources().getDrawable(R.drawable.play));
                     //gramophoneView.setPlaying(!gramophoneView.getPlaying());
                 }
                 else {
                     player.start();
                     pf = 1;
+                    ff=2;
                     btest1.setBackgroundDrawable(getResources().getDrawable(R.drawable.stop));
                     //gramophoneView.setPlaying(!gramophoneView.getPlaying());
                 }
@@ -146,6 +150,8 @@ public class MainActivity extends AppCompatActivity implements ByListFragment.Fr
                     e.printStackTrace();
                 }
                 pf = 1;
+                ff=1;
+                btest1.setBackgroundDrawable(getResources().getDrawable(R.drawable.stop));
             }
         });
 
@@ -167,6 +173,8 @@ public class MainActivity extends AppCompatActivity implements ByListFragment.Fr
                     e.printStackTrace();
                 }
                 pf =1;
+                ff=1;
+                btest1.setBackgroundDrawable(getResources().getDrawable(R.drawable.stop));
             }
         });
 
@@ -215,6 +223,7 @@ public class MainActivity extends AppCompatActivity implements ByListFragment.Fr
     @Override
     public void process(int str) {
         pf = 1;
+        ff=1;
         btest1 = findViewById(R.id.imageButton2);
         btest1.setBackgroundDrawable(getResources().getDrawable(R.drawable.stop));
         player.stop();
@@ -243,6 +252,21 @@ public class MainActivity extends AppCompatActivity implements ByListFragment.Fr
                 System.out.println("out");
             }catch (Exception e){
                 ;
+            }
+            if(ff==1&& (!player.isPlaying())){
+                posi++;
+                if(posi>=len)
+                    posi=0;
+                pf = 1;
+                player.reset();
+                try {
+                    player.setDataSource(aa[posi].getAbsolutePath());
+                    player.prepare();
+                    player.start();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             }
 
             seekBar.setProgress((int)((double)(a)/b*100));
